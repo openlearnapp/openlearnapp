@@ -1,10 +1,15 @@
 # Ignore everything at root
 /*
 
-# Allow workspace meta content (public)
+# Allow workspace bootstrap content (public, shared with everyone)
 !.gitignore
+!README.md
 !CLAUDE.md
+!.claude/
 !docs/
+
+# Local-only Claude settings — never shared
+.claude/settings.local.json
 
 # Internal notes — local only, never pushed
 /2026-05-08_retro-review.md
@@ -15,4 +20,3 @@
 .DS_Store
 .playwright/
 .playwright-mcp/
-.claude/
