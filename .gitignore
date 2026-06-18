@@ -1,0 +1,18 @@
+# Ignore everything at root
+/*
+
+# Allow workspace meta content (public)
+!.gitignore
+!CLAUDE.md
+!docs/
+
+# Internal notes — local only, never pushed
+/2026-05-08_retro-review.md
+/Collaboration.md
+/validations-fe-be.md
+
+# Tooling artefacts
+.DS_Store
+.playwright/
+.playwright-mcp/
+.claude/
