@@ -1,10 +1,14 @@
 # Ignore everything at root
 /*
 
-# Allow workspace meta content (public)
+# Allow workspace bootstrap content (public, shared with everyone)
 !.gitignore
+!README.md
 !CLAUDE.md
-!docs/
+!.claude/
+
+# Local-only Claude settings — never shared
+.claude/settings.local.json
 
 # Internal notes — local only, never pushed
 /2026-05-08_retro-review.md
@@ -15,4 +19,24 @@
 .DS_Store
 .playwright/
 .playwright-mcp/
-.claude/
+
+# --- Cloned org repos (each an independent git clone, never tracked here) ---
+# Kept in sync by the workspace-setup skill; new org repos are appended on setup.
+/concept-paid-workshops/
+/content-engine/
+/open-community/
+/openlearnapp.github.io/
+/plugin-workshop-creator/
+/team/
+/workshop-AI-im-Journalismus/
+/workshop-arabisch/
+/workshop-docker/
+/workshop-english/
+/workshop-farsi/
+/workshop-k0rdent/
+/workshop-linux-grundlagen/
+/workshop-linux-grundlagen-preview/
+/workshop-milas-abenteuer/
+/workshop-portugiesisch/
+/workshop-spanish/
+/workshop-video-engine/

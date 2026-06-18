@@ -1,50 +1,28 @@
-# Open Learn Platform — Workspace
+# Open Learn Workspace — Claude-Anweisungen
 
-GitHub Organisation: https://github.com/openlearnapp
+Dies ist der **Workspace-Bootstrap** für die [openlearnapp](https://github.com/openlearnapp)-Org.
+Wer dieses Repo klont und Claude Code startet, erwartet, dass du den restlichen
+Workspace einrichtest. Die menschenlesbare Struktur- und Repo-Übersicht steht im
+[README](./README.md).
 
-Meta-Repo / Workspace für **alle** Repos der openlearnapp-Org. Jedes Repo ist ein
-eigenständiger Git-Klon in einem Unterordner; dieses Meta-Repo trackt nur die
-Workspace-Doku (CLAUDE.md, `*.md`, `docs/`) und git-ignoriert die Repo-Klone selbst
-(Whitelist-`.gitignore`).
+## Setup
 
-## Struktur
+Wenn der Nutzer den Workspace einrichten will ("Setup", "richte den Workspace ein",
+"klone alle Repos") oder das offensichtlich ein frischer Klon ist:
 
-```
-openlearnapp/
-  .gitignore            # Whitelist — ignoriert alles, erlaubt Workspace-Doku
-  CLAUDE.md             # diese Datei
-  docs/                 # Workspace-übergreifende Notizen
-  <repo>/               # je ein eigenständiger Git-Klon pro Org-Repo
-```
+→ Führe die Skill **`workspace-setup`** aus (`.claude/skills/workspace-setup/`).
 
-## Repos
+Sie klont alle Org-Repos live aus `gh repo list openlearnapp` in Unterordner.
+Idempotent: vorhandene Repos überspringen, das `openlearnapp`-Repo selbst nie klonen.
 
-| Repo | Description |
-|------|-------------|
-| `openlearnapp.github.io` | Open Learn — Main app (Vue 3, Vite, Tailwind), formerly `open-learn` |
-| `content-engine` | Werkzeug-Repo: automatisierte Bild-/Video-Produktion mit ComfyUI (lokal) |
-| `workshop-video-engine` | Workshop-Video-Engine |
-| `concept-paid-workshops` | Konzept: bezahlte Workshops |
-| `team` | Team-/Org-Profil |
-| `workshop-english` | Workshop: Learn English from German — 10 verb lessons, 30 core verbs |
-| `workshop-spanish` | Workshop: Spanisch lernen |
-| `workshop-portugiesisch` | Workshop: Portugiesisch |
-| `workshop-arabisch` | Workshop: Arabisch |
-| `workshop-farsi` | Workshop: Farsi |
-| `workshop-milas-abenteuer` | Workshop: Milas Abenteuer (Kinder-Lerngeschichte) |
-| `workshop-AI-im-Journalismus` | Workshop: KI im Journalismus — KI-Tools in der journalistischen Praxis |
-| `workshop-linux-grundlagen` | Workshop: Linux Grundlagen — 12 Lektionen |
-| `workshop-linux-grundlagen-preview` | Preview-Build für Linux-Grundlagen |
-| `workshop-docker` | Workshop: Docker — Container Grundlagen |
-| `workshop-k0rdent` | Workshop: k0rdent — Kubernetes Management (12 Lektionen, 4 Sprachen) |
-| `plugin-workshop-creator` | Plugin: Workshop Creator für Claude Code |
-| `open-community` | Combine Open Learn and Service Agent for an Open Community |
+## Regeln
 
-## Konventionen
-
-- Repo-Klone sind eigenständige Git-Repos und werden hier git-ignoriert — nie als
-  Submodule oder verschachtelte Commits einchecken.
-- Klonen per SSH: `git clone git@github.com:openlearnapp/<repo>.git`
-- Setup-Layout pro Repo: klassischer Klon (Default). Worktrees nur, wo ein Repo das
-  in seiner eigenen CLAUDE.md (`## Setup default`) empfiehlt.
-- Neue Org-Repos: hier klonen und in der Tabelle oben ergänzen.
+- Jedes Org-Repo ist ein **eigenständiger Git-Klon** in einem Unterordner und wird
+  hier per Whitelist-`.gitignore` ignoriert — niemals als Submodule oder
+  verschachtelten Commit einchecken.
+- **Klassische Klone** als Default; Worktrees nur, wenn ein Repo das in seiner eigenen
+  `CLAUDE.md` (`## Setup default`) empfiehlt.
+- **PR-basiert**, nie direkt auf `main` pushen. Semantische Commits/PRs.
+- Geteilte Skills/Configs liegen in `.claude/` und gelten für alle. Lokale, nicht zu
+  teilende Einstellungen gehören in `.claude/settings.local.json` (git-ignoriert).
+- Arbeit *innerhalb* eines geklonten Repos folgt dessen eigener `CLAUDE.md`.
