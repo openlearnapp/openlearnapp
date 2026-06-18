@@ -21,10 +21,13 @@ clones are skipped, newly added org repos are picked up.
    and `.claude/`). Run all clones from there with absolute paths.
 
 2. Clone every org repo except the `openlearnapp` workspace repo itself, skipping any
-   that already exist (classic clones, SSH):
+   that already exist (classic clones, SSH). Each repo that ends up in the workspace
+   must also be listed in `.gitignore` — append it if missing, so the clones are never
+   accidentally tracked:
 
    ```bash
    cd <workspace-root> || exit 1
+   touch .gitignore
    gh repo list openlearnapp --limit 200 --json name --jq '.[].name' \
    | while read -r repo; do
        [ "$repo" = "openlearnapp" ] && continue          # never clone the workspace into itself
@@ -32,14 +35,20 @@ clones are skipped, newly added org repos are picked up.
          echo "SKIP $repo (exists)"
        else
          git clone -q "git@github.com:openlearnapp/$repo.git" "$repo" \
-           && echo "OK   $repo" || echo "FAIL $repo"
+           && echo "OK   $repo" || { echo "FAIL $repo"; continue; }
        fi
+       # ensure the repo is git-ignored by this workspace
+       grep -qxF "/$repo/" .gitignore || echo "/$repo/" >> .gitignore
      done
    ```
 
-3. Report a short summary: how many repos cloned, skipped, failed. If anything failed,
-   show the repo names and the likely cause (auth, SSH, network) — do not silently
-   drop failures.
+3. If new entries were appended to `.gitignore`, keep them tidy (they belong under the
+   "Cloned org repos" section). Committing the updated `.gitignore` is a normal docs/chore
+   PR — the cloned repos themselves stay ignored and are never staged.
+
+4. Report a short summary: how many repos cloned, skipped, failed, and whether
+   `.gitignore` was updated. If anything failed, show the repo names and the likely cause
+   (auth, SSH, network) — do not silently drop failures.
 
 ## Notes
 

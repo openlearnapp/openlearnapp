@@ -6,7 +6,6 @@
 !README.md
 !CLAUDE.md
 !.claude/
-!docs/
 
 # Local-only Claude settings — never shared
 .claude/settings.local.json
@@ -20,3 +19,24 @@
 .DS_Store
 .playwright/
 .playwright-mcp/
+
+# --- Cloned org repos (each an independent git clone, never tracked here) ---
+# Kept in sync by the workspace-setup skill; new org repos are appended on setup.
+/concept-paid-workshops/
+/content-engine/
+/open-community/
+/openlearnapp.github.io/
+/plugin-workshop-creator/
+/team/
+/workshop-AI-im-Journalismus/
+/workshop-arabisch/
+/workshop-docker/
+/workshop-english/
+/workshop-farsi/
+/workshop-k0rdent/
+/workshop-linux-grundlagen/
+/workshop-linux-grundlagen-preview/
+/workshop-milas-abenteuer/
+/workshop-portugiesisch/
+/workshop-spanish/
+/workshop-video-engine/
